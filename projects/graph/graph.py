@@ -146,6 +146,9 @@ class Graph:
 
         This should be done using recursion.
         """
+        if path == []:
+            path = [starting_vertex]
+
         if starting_vertex not in seen:
             seen.add(starting_vertex)
 
@@ -156,6 +159,8 @@ class Graph:
                 result = self.dfs_recursive(neighbor, destination_vertex, seen, path + [neighbor])
                 if result:
                     return result
+        
+        return None
 
 
 if __name__ == '__main__':
