@@ -1,5 +1,17 @@
 import random
 
+# TODO:
+# Change to OOP
+
+def get_opposite_direction(direction):
+    dir = {
+        "n":"s", 
+        "s":"n", 
+        "e":"w", 
+        "w":"e"
+        }
+    return dir[direction]
+
 def find_unexplored_path(cur_room, seen, visited):
     """
     Looks around in current room for
@@ -107,11 +119,6 @@ def add_to_visited(room, visited):
         visited.add(room)
         return True
     return False
-
-
-def get_opposite_direction(direction):
-    dir = {"n":"s", "s":"n", "e":"w", "w":"e"}
-    return dir[direction]
 
 def find_path(player, seen, visited, path_taken, world):
     player.current_room = world.starting_room
