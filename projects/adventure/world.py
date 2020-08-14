@@ -10,10 +10,10 @@ class World:
         self.grid_size = 0
     def load_graph(self, room_graph):
         num_rooms = len(room_graph)
-        rooms = [None] * num_rooms
+        #rooms = [None] * num_rooms
         grid_size = 1
         for i in range(0, num_rooms):
-            x = room_graph[i][0][0]
+            #x = room_graph[i][0][0]
             grid_size = max(grid_size, room_graph[i][0][0], room_graph[i][0][1])
             self.rooms[i] = Room(f"Room {i}", f"({room_graph[i][0][0]},{room_graph[i][0][1]})",i, room_graph[i][0][0], room_graph[i][0][1])
         self.room_grid = []

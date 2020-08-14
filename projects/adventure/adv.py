@@ -2,17 +2,18 @@ from room import Room
 from player import Player
 from world import World
 
+from wander_aimlessly import find_unexplored_path, move_through_path, nearest_unexplored_room, find_path
+from dft import Stack, Graph
+
 import random
 from ast import literal_eval
 
 # Load world
 world = World()
 
-
-# You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
-# map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
+# map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop_fork.txt"
 map_file = "maps/main_maze.txt"
 
@@ -22,14 +23,24 @@ world.load_graph(room_graph)
 
 # Print an ASCII map
 world.print_rooms()
-
 player = Player(world.starting_room)
 
-# Fill this out with directions to walk
-# traversal_path = ['n', 'n']
-traversal_path = []
+choice = input("1. Wander Aimlessly or DFT? (1/2)\n-> ").strip()
+if choice == "1":
 
+    seen = dict()
+    visited = set()
+    path_taken = list()
 
+    traversal_path = find_path(player, seen, visited, path_taken, world)
+
+elif choice == "2":
+
+    traversal_path = []
+    world_graph = Graph()
+    world_graph.dft(traversal_path, player, room_graph)
+else:
+    print("Invalid Input\n")
 
 # TRAVERSAL TEST
 visited_rooms = set()
@@ -47,16 +58,15 @@ else:
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
 
-
 #######
 # UNCOMMENT TO WALK AROUND
 #######
-player.current_room.print_room_description(player)
-while True:
-    cmds = input("-> ").lower().split(" ")
-    if cmds[0] in ["n", "s", "e", "w"]:
-        player.travel(cmds[0], True)
-    elif cmds[0] == "q":
-        break
-    else:
-        print("I did not understand that command.")
+# player.current_room.print_room_description(player)
+# while True:
+#     cmds = input("-> ").lower().split(" ")
+#     if cmds[0] in ["n", "s", "e", "w"]:
+#         player.travel(cmds[0], True)
+#     elif cmds[0] == "q":
+#         break
+#     else:
+#         print("I did not understand that command.")
